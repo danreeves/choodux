@@ -7,10 +7,10 @@ const compression = require('compression'); // Compresssss 🙏
 const clientPath = path.join(__dirname, 'client.js');
 const assets = bankai(clientPath, {
     html: {
-      title: 'long-way',
-      body: `
-        <div id="app"></div>
-      `,
+        title: 'Choodux',
+        body: `
+            <div id="app"></div>
+        `,
     },
     js: {
         transform: ['yo-yoify', 'sheetify/transform', 'babelify'],
