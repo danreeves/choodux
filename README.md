@@ -1,4 +1,4 @@
-# A Choo demo using a state reducer à la Redux ✨
+# 🚂 ✨ A Choo demo using a state reducer à la Redux
 
 Check out `client.js` and `client/choo-store.js` to see how it works
 
