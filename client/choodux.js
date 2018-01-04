@@ -9,7 +9,7 @@ module.exports = function makeChooStore(reducer) {
         let ourState = chooState.state;
 
         // On every event
-        emitter.on('*', (action, payload) => {
+        emitter.on('*', (action, timestamp, payload) => {
             // Save previous state
             const prevState = Object.assign({}, ourState);
             // Get next state
