@@ -2,26 +2,25 @@ const shallowEqual = require('../util/shallow-equal');
 
 module.exports = function makeChooStore(reducer) {
     return function state(chooState, emitter) {
-        // Initial state
-        chooState.state = reducer(undefined, { type: '@choo/init' });
+        // Create initial state
         // We'll use chooState.state so we don't clobber other stuff
         // like chooState.route. See https://github.com/yoshuawuyts/choo#state
-        let ourState = chooState.state;
+        chooState.state = reducer(undefined, { type: '@choo/init' });
 
         // On every event
         emitter.on('*', (action, timestamp, payload) => {
             // Save previous state
-            const prevState = Object.assign({}, ourState);
+            const prevState = Object.assign({}, chooState.state);
             // Get next state
-            ourState = Object.assign(
+            const nextState = Object.assign(
                 {},
-                ourState,
-                reducer(ourState, { type: action, payload })
+                prevState,
+                reducer(prevState, { type: action, payload })
             );
             // See if anything changed
-            if (!shallowEqual(prevState, ourState)) {
+            if (!shallowEqual(prevState, nextState)) {
                 // Update choo state
-                chooState.state = ourState;
+                chooState.state = nextState;
                 // Rerender the page
                 emitter.emit('render');
             }
